@@ -1,0 +1,94 @@
+@import "tailwindcss";
+
+:root {
+  --background: #030712;
+  --foreground: #f8fafc;
+  
+  --surface-base: #0b0f19;
+  --surface-elevated: #111827;
+  --surface-hover: #1f2937;
+  
+  --border-subtle: rgba(255, 255, 255, 0.08);
+  --border-prominent: rgba(255, 255, 255, 0.15);
+  
+  --brand-primary: #3b82f6;
+  --brand-primary-hover: #2563eb;
+  --brand-primary-soft: rgba(59, 130, 246, 0.12);
+  --brand-glow: rgba(59, 130, 246, 0.25);
+  
+  --status-success: #10b981;
+  --status-success-soft: rgba(16, 185, 129, 0.12);
+  
+  --status-warning: #f59e0b;
+  --status-warning-soft: rgba(245, 158, 11, 0.12);
+  
+  --status-danger: #f43f5e;
+  --status-danger-soft: rgba(244, 63, 94, 0.12);
+  
+  --status-info: #06b6d4;
+  --status-info-soft: rgba(6, 182, 212, 0.12);
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  min-height: 100vh;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Inter", "Helvetica Neue", Arial, sans-serif;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Accessibility & Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Custom Scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--surface-base);
+}
+::-webkit-scrollbar-thumb {
+  background: #1f2937;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #374151;
+}
+
+/* Glassmorphism & Panel Classes */
+.glass-panel {
+  background: rgba(15, 23, 42, 0.75);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--border-subtle);
+}
+
+.glass-panel-hover {
+  transition: all 0.2s ease-in-out;
+}
+.glass-panel-hover:hover {
+  border-color: rgba(59, 130, 246, 0.35);
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.4), 0 0 15px rgba(59, 130, 246, 0.1);
+  transform: translateY(-2px);
+}
+
+/* Focus Ring Accessibility */
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+select:focus-visible {
+  outline: 2px solid var(--brand-primary);
+  outline-offset: 2px;
+}
