@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Your Weekly Job Radar — CareerRadar</title>
+  <style>
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; background-color: #090d16; color: #f1f5f9; margin: 0; padding: 20px; }
+    .container { max-width: 600px; margin: 0 auto; background: #0f172a; border-radius: 16px; border: 1px solid #1e293b; padding: 32px; }
+    .header { text-align: center; border-bottom: 1px solid #1e293b; padding-bottom: 20px; }
+    .logo { font-size: 20px; font-weight: 800; color: #3b82f6; letter-spacing: 1px; }
+    .badge { display: inline-block; background: rgba(59, 130, 246, 0.15); color: #60a5fa; padding: 4px 10px; border-radius: 6px; font-size: 11px; font-weight: 600; text-transform: uppercase; margin-top: 8px; }
+    .summary { margin: 24px 0; font-size: 14px; line-height: 1.6; color: #94a3b8; }
+    .job-card { background: #131d35; border: 1px solid #1e293b; border-radius: 12px; padding: 18px; margin-bottom: 16px; }
+    .job-title { font-size: 16px; font-weight: 700; color: #ffffff; margin: 0 0 4px 0; }
+    .job-meta { font-size: 12px; color: #64748b; margin-bottom: 10px; }
+    .match-pill { display: inline-block; background: rgba(16, 185, 129, 0.2); color: #34d399; font-weight: 700; font-size: 12px; padding: 2px 8px; border-radius: 6px; }
+    .gaps { font-size: 12px; color: #f87171; margin-top: 8px; }
+    .btn { display: inline-block; background: #2563eb; color: #ffffff !important; text-decoration: none; font-weight: 600; font-size: 13px; padding: 8px 16px; border-radius: 8px; margin-top: 10px; }
+    .cta-container { text-align: center; margin-top: 32px; padding-top: 20px; border-top: 1px solid #1e293b; }
+    .cta-btn { display: inline-block; background: linear-gradient(135deg, #2563eb, #4f46e5); color: #ffffff !important; text-decoration: none; font-weight: 700; font-size: 15px; padding: 14px 28px; border-radius: 10px; box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3); }
+    .footer { text-align: center; font-size: 11px; color: #475569; margin-top: 24px; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <div class="logo">CAREERRADAR</div>
+      <div class="badge">Weekly Job Radar Scan</div>
+      <h2 style="color: #ffffff; margin: 12px 0 0 0; font-size: 22px;">{{ candidate_name }}, here are your top matches</h2>
+    </div>
+
+    <div class="summary">
+      We scanned the centralized CareerRadar market database and identified <strong>{{ total_new_jobs }} new/updated jobs</strong> matching your target role of <em>{{ target_role }}</em> in <em>{{ location }}</em>.
+      <br>
+      <strong>{{ jobs_above_threshold }} jobs</strong> exceed your minimum match threshold of {{ min_match_score }}%.
+    </div>
+
+    {% for job in top_jobs %}
+    <div class="job-card">
+      <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+        <div>
+          <div class="job-title">#{{ loop.index }} {{ job.title }}</div>
+          <div class="job-meta">{{ job.company_name }} • {{ job.location }}</div>
+        </div>
+        <div>
+          <span class="match-pill">{{ job.match_score }}% Match</span>
+        </div>
+      </div>
+
+      {% if job.missing_required %}
+      <div class="gaps">
+        <strong>Missing Required:</strong> {{ job.missing_required | join(', ') }}
+      </div>
+      {% endif %}
+
+      <a href="{{ frontend_url }}/jobs/{{ job.job_id }}" class="btn">View Gap Analysis & Next Steps</a>
+    </div>
+    {% endfor %}
+
+    <div class="cta-container">
+      <a href="{{ frontend_url }}/dashboard" class="cta-btn">Open CareerRadar Dashboard</a>
+    </div>
+
+    <div class="footer">
+      You are receiving this automated weekly market digest based on your CareerRadar settings.<br>
+      To update your notification schedule, visit your <a href="{{ frontend_url }}/profile" style="color: #64748b;">Alert Settings</a>.
+    </div>
+  </div>
+</body>
+</html>
